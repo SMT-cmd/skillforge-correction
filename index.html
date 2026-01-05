@@ -1,273 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillForge 2026 | Identity Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0f172a;
-            --brand: #2563eb;
-            --brand-light: #eff6ff;
-            --accent: #f59e0b;
-            --bg: #f8fafc;
-            --glass: rgba(255, 255, 255, 0.9);
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.05) 0px, transparent 50%);
-            color: var(--primary);
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .main-card {
-            width: 100%;
-            max-width: 550px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .top-bar { background: var(--primary); height: 6px; width: 100%; }
-        .content { padding: 40px; }
-
-        .header { text-align: center; margin-bottom: 35px; }
-        .header h1 { font-size: 26px; font-weight: 800; letter-spacing: -1px; margin: 0; color: var(--primary); }
-        .header p { font-size: 14px; color: #64748b; margin-top: 8px; font-weight: 500; }
-
-        .section-label {
-            font-size: 11px; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 1.5px; color: var(--brand); margin-bottom: 20px;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .section-label::after { content: ""; height: 1px; background: #e2e8f0; flex: 1; }
-
-        .form-grid { display: grid; gap: 20px; }
-        .input-group { position: relative; }
-        label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #475569; }
-
-        input, select, textarea {
-            width: 100%; padding: 14px 16px; background: #ffffff;
-            border: 1.5px solid #e2e8f0; border-radius: 12px;
-            font-size: 14px; font-family: inherit; color: var(--primary);
-            transition: all 0.2s ease;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none; border-color: var(--brand);
-            box-shadow: 0 0 0 4px var(--brand-light); background: #fff;
-        }
-
-        .preview-box {
-            background: #0f172a; border-radius: 16px; padding: 20px;
-            margin-top: 30px; color: #94a3b8; font-family: 'JetBrains Mono', monospace;
-            font-size: 11px; border: 1px solid #1e293b;
-        }
-        .preview-header { color: #38bdf8; margin-bottom: 10px; display: block; }
-        .preview-line { margin-bottom: 4px; display: block; }
-        .preview-line b { color: #f8fafc; }
-
-        .submit-btn {
-            width: 100%; background: var(--brand); color: white; padding: 16px;
-            border: none; border-radius: 14px; font-size: 15px; font-weight: 700;
-            cursor: pointer; margin-top: 25px; transition: transform 0.2s, background 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-        .submit-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
-        .submit-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
-
-        .status-overlay {
-            text-align: center; padding: 60px 20px; animation: fadeIn 0.4s ease forwards;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .icon-circle {
-            width: 80px; height: 80px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 40px; margin: 0 auto 20px;
-        }
-        .success-circle { background: #dcfce7; color: #166534; }
-        .locked-circle { background: #fee2e2; color: #991b1b; }
-
-        .footer-note { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillForge Digital • Identity Sync</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes zoom-in { from { transform: scale(0.98); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .animate-in { animation: fade-in 0.6s ease-out forwards; }
+    .zoom-in { animation: zoom-in 0.4s ease-out forwards; }
+    @media print {
+      body { background: white !important; color: black !important; -webkit-print-color-adjust: exact; }
+      .no-print { display: none !important; }
+      #print-slip { display: block !important; position: static !important; width: 100% !important; margin: 0 !important; height: auto !important; }
+    }
+    input:focus, select:focus { box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.5); }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
+  </style>
 </head>
-<body>
+<body class="min-h-screen bg-[#06080a] text-slate-100 font-sans selection:bg-amber-500/30">
 
-<div class="main-card" id="mainCard">
-    <div class="top-bar"></div>
-    <div class="content" id="formContent">
-        <div class="header">
-            <h1>Identity Registry</h1>
-            <p>Master Data Correction Protocol v5.5</p>
+  <div class="fixed inset-0 overflow-hidden pointer-events-none no-print">
+    <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-amber-600/5 blur-[120px] rounded-full"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/5 blur-[120px] rounded-full"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 py-12 flex flex-col items-center">
+    <header class="w-full flex justify-between items-center mb-10 no-print">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-700 rounded-xl flex items-center justify-center shadow-lg shadow-amber-900/20">
+          <i data-lucide="cpu" class="text-white w-6 h-6"></i>
         </div>
+        <div>
+          <h1 class="text-lg font-black tracking-tighter uppercase leading-none italic">SkillForge Digital</h1>
+          <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-none">Smart System Protocol</span>
+        </div>
+      </div>
+      <div class="text-right">
+        <span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest flex items-center gap-2">
+            <div class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></div> Identity Sync Active
+        </span>
+      </div>
+    </header>
 
-        <form id="correctionForm">
-            <input type="hidden" name="access_key" value="717169f6-a1b6-4d49-a50f-ed24a6e7d2f3">
-            <input type="hidden" name="subject" value="LOG: SkillForge Registry Correction">
-            
-            <div class="section-label">01. Identity Verification</div>
-            <div class="form-grid">
-                <div class="input-group">
-                    <label>Digital ID (SFID)</label>
-                    <input type="text" name="sfid" id="sfidInput" placeholder="SF26-XXX-000" required oninput="updatePreview()">
-                </div>
-                <div class="input-group">
-                    <label>Full Name as Registered</label>
-                    <input type="text" name="registered_name" id="nameInput" placeholder="Enter name for lookup" required oninput="updatePreview()">
-                </div>
+    <main id="app-container" class="w-full max-w-2xl no-print">
+      <div id="locked-view" class="hidden bg-[#0f1218]/90 border border-white/5 rounded-[32px] p-12 text-center animate-in">
+        <div class="w-20 h-20 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-red-500">
+          <i data-lucide="lock" class="w-10 h-10"></i>
+        </div>
+        <h2 class="text-3xl font-black mb-2 tracking-tight">Session Locked</h2>
+        <p class="text-slate-400 text-sm mb-6 uppercase font-bold tracking-tight">A sync request from this device is already in progress.</p>
+        <div id="lock-ref" class="font-mono text-[10px] text-slate-600 bg-black/40 p-3 rounded-lg border border-white/5">REF: ---</div>
+      </div>
+
+      <div id="correction-view" class="bg-[#0f1218]/90 backdrop-blur-2xl border border-white/5 rounded-[32px] overflow-hidden shadow-2xl animate-in">
+        <div class="p-8 md:p-12">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-black mb-2 tracking-tight uppercase italic">Identity Synchronization</h2>
+                <p class="text-slate-400 text-sm font-medium tracking-tight uppercase">Update your details for the SkillForge 2026 digital ledger</p>
             </div>
 
-            <div style="margin-top: 35px;" class="section-label">02. Requested Changes</div>
-            <div class="form-grid">
-                <div class="input-group">
-                    <label>Correction Target</label>
-                    <select name="correction_target" required>
-                        <option value="name">Spelling Error in Name</option>
-                        <option value="track">Incorrect Skill Track</option>
-                        <option value="both">Multiple Discrepancies</option>
-                        <option value="missing">Missing from Registry</option>
+            <form id="correction-form" class="space-y-8" onsubmit="return false;">
+                <input type="hidden" name="access_key" value="717169f6-a1b6-4d49-a50f-ed24a6e7d2f3">
+                <input type="hidden" name="subject" value="LOG: SkillForge Registry Correction">
+                
+                <div class="space-y-4">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2 py-0.5 bg-slate-800 text-slate-400 text-[9px] font-black uppercase rounded">Source</span>
+                    <h3 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Previous Registry Data</h3>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="md:col-span-1">
+                      <label class="text-[9px] font-black text-slate-500 uppercase mb-2 block tracking-widest">Old SFID (Current ID)</label>
+                      <input required type="text" name="old_sfid" id="oldSfid" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 focus:outline-none focus:border-blue-500 text-sm uppercase font-mono" placeholder="SF26-XXX-000" />
+                    </div>
+                    <div class="md:col-span-1">
+                      <label class="text-[9px] font-black text-slate-500 uppercase mb-2 block tracking-widest">Old Registered Name</label>
+                      <input required type="text" name="old_name" id="oldName" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 focus:outline-none focus:border-blue-500 text-sm uppercase" placeholder="NAME ON FILE" />
+                    </div>
+                    <div class="md:col-span-2">
+                      <label class="text-[9px] font-black text-slate-500 uppercase mb-2 block tracking-widest">Old Registered Skill Path</label>
+                      <select required name="old_track" id="oldTrack" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 focus:outline-none focus:border-blue-500 text-sm transition-all">
+                        <option value="" disabled selected>Select Previous Path...</option>
+                        <option value="Forex Synthetic Indices">Forex Synthetic Indices</option>
+                        <option value="Graphics Design">Graphics Design</option>
+                        <option value="Stock Market Trading">Stock Market Trading</option>
+                        <option value="Web Design & Development">Web Design & Development</option>
+                        <option value="Forex Currency Pairs">Forex Currency Pairs</option>
+                        <option value="Discord Design & Development">Discord Design & Development</option>
+                        <option value="Photography & Editing">Photography & Editing</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="px-2 py-0.5 bg-amber-500/20 text-amber-500 text-[9px] font-black uppercase rounded">Corrected</span>
+                    <h3 class="text-[11px] font-black text-amber-500 uppercase tracking-[0.2em]">Target Identity Data</h3>
+                  </div>
+                  <div>
+                    <label class="text-[9px] font-black text-slate-500 uppercase mb-2 block tracking-widest">Corrected Legal Name</label>
+                    <input required type="text" name="corrected_name" id="newName" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 focus:outline-none focus:border-amber-500 text-sm uppercase" placeholder="SURNAME FIRSTNAME MIDDLENAME" />
+                  </div>
+                  <div>
+                    <label class="text-[9px] font-black text-slate-500 uppercase mb-2 block tracking-widest">Corrected Skill Path</label>
+                    <select required name="corrected_track" id="newTrack" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 focus:outline-none focus:border-amber-500 text-sm transition-all">
+                      <option value="" disabled selected>Select Correct Path...</option>
+                      <option value="Forex Synthetic Indices">Forex Synthetic Indices</option>
+                      <option value="Graphics Design">Graphics Design</option>
+                      <option value="Stock Market Trading">Stock Market Trading</option>
+                      <option value="Web Design & Development">Web Design & Development</option>
+                      <option value="Forex Currency Pairs">Forex Currency Pairs</option>
+                      <option value="Discord Design & Development">Discord Design & Development</option>
+                      <option value="Photography & Editing">Photography & Editing</option>
+                      <option value="Cybersecurity">Cybersecurity</option>
                     </select>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="text-[9px] font-black text-slate-500 uppercase mb-2 block tracking-widest">WhatsApp Hub</label>
+                      <input required type="tel" name="whatsapp" id="whatsapp" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 focus:outline-none focus:border-amber-500 text-sm transition-all" placeholder="+234..." />
+                    </div>
+                    <div>
+                      <label class="text-[9px] font-black text-slate-500 uppercase mb-2 block tracking-widest">Email Node</label>
+                      <input required type="email" name="email" id="email" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 focus:outline-none focus:border-amber-500 text-sm transition-all" placeholder="name@domain.com" />
+                    </div>
+                  </div>
                 </div>
-                <div class="input-group">
-                    <label>New Proposed Track</label>
-                    <select name="proposed_track">
-                        <option value="No Change">Maintain Current Track</option>
-                        <option value="WDD">Web Dev & Design (WDD)</option>
-                        <option value="GRD">Graphic Systems (GRD)</option>
-                        <option value="FXS">Forex Synthetic (FXS)</option>
-                        <option value="STK">Stock Trading (STK)</option>
-                        <option value="CYB">Cybersecurity (CYB)</option>
-                        <option value="FXC">Forex Currency (FXC)</option>
-                        <option value="DDC">Discord Design and Development (DDC)</option>
-                        <option value="PHO">Photography (PHO)</option>
-                    </select>
+    
+                <button type="submit" id="submit-btn" class="w-full bg-amber-600 text-white py-4 rounded-xl font-black uppercase text-xs tracking-[0.2em] hover:bg-amber-500 transition-all shadow-xl flex items-center justify-center gap-2">
+                  Initiate Smart Sync <i data-lucide="zap" class="w-4 h-4"></i>
+                </button>
+            </form>
+        </div>
+      </div>
+
+      <div id="onboarding-view" class="hidden bg-[#0f1218]/90 backdrop-blur-2xl border border-white/5 rounded-[32px] p-8 md:p-12 text-center zoom-in">
+            <h2 class="text-3xl font-black mb-2 tracking-tight italic uppercase">Endpoint Validation</h2>
+            <p class="text-slate-400 text-xs mb-10 uppercase font-bold tracking-widest">Sync with community nodes</p>
+            <div class="space-y-4 text-left">
+                <div id="step-discord" class="p-6 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-[#5865F2]/20 rounded-lg flex items-center justify-center text-[#5865F2]"><i data-lucide="message-square" class="w-5 h-5"></i></div>
+                        <div><h3 class="font-bold text-sm">Discord Hub</h3><p class="text-[9px] text-slate-500 uppercase font-black">Academic Node</p></div>
+                    </div>
+                    <a href="https://discord.gg/JyegEXMXx" target="_blank" onclick="completeStep('discord')" class="bg-[#5865F2] text-white text-[9px] font-black px-4 py-2 rounded-lg uppercase">Link Node</a>
                 </div>
-                <div class="input-group">
-                    <label>Technical Details / Comments</label>
-                    <textarea name="remarks" rows="2" placeholder="Specify the exact misspelling or issue..."></textarea>
+                <div id="step-telegram" class="p-6 bg-white/5 border border-white/10 rounded-2xl opacity-40 pointer-events-none flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-[#0088cc]/20 rounded-lg flex items-center justify-center text-[#0088cc]"><i data-lucide="video" class="w-5 h-5"></i></div>
+                        <div><h3 class="font-bold text-sm">Telegram Broadcast</h3><p class="text-[9px] text-slate-500 uppercase font-black">Live Stream</p></div>
+                    </div>
+                    <a href="https://t.me/skillforgeorg" target="_blank" onclick="completeStep('telegram')" class="bg-[#0088cc] text-white text-[9px] font-black px-4 py-2 rounded-lg uppercase">Verify Stream</a>
+                </div>
+                <div id="step-whatsapp" class="p-6 bg-white/5 border border-white/10 rounded-2xl opacity-40 pointer-events-none flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-[#25D366]/20 rounded-lg flex items-center justify-center text-[#25D366]"><i data-lucide="users" class="w-5 h-5"></i></div>
+                        <div><h3 class="font-bold text-sm" id="wa-name">Updated Node</h3><p class="text-[9px] text-slate-500 uppercase font-black">Skill Group</p></div>
+                    </div>
+                    <a id="wa-link" href="#" target="_blank" onclick="completeStep('whatsapp')" class="bg-[#25D366] text-white text-[9px] font-black px-4 py-2 rounded-lg uppercase">Join Cluster</a>
                 </div>
             </div>
+            <button id="final-btn" onclick="saveToCloud()" class="hidden w-full mt-8 bg-white text-black py-4 rounded-xl font-black uppercase text-xs tracking-widest animate-in">Complete Digital Sync</button>
+      </div>
 
-            <div class="preview-box">
-                <span class="preview-header">// LOG PREVIEW</span>
-                <span class="preview-line">ID_NODE: <b id="pv-id">Waiting...</b></span>
-                <span class="preview-line">USER_REF: <b id="pv-name">Ready</b></span>
-                <span class="preview-line">PRIORITY: <b>Level_02</b></span>
-                <span class="preview-line">TS: <b id="pv-time">--:--</b></span>
+      <div id="success-view" class="hidden bg-[#0f1218]/90 border border-white/5 rounded-[32px] p-12 text-center zoom-in">
+        <div class="w-20 h-20 bg-amber-500/10 border border-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-amber-500 shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+          <i data-lucide="check-circle" class="w-10 h-10"></i>
+        </div>
+        <h2 class="text-3xl font-black mb-2 tracking-tight">Registry Corrected</h2>
+        <p class="text-slate-400 text-sm mb-12 uppercase font-bold tracking-tight">Your Node is now Synchronized.</p>
+        <button onclick="window.print()" class="w-full bg-amber-600 text-white py-4 rounded-xl font-black uppercase text-xs shadow-xl flex items-center justify-center gap-2 mb-3">
+          Print Smart Slip <i data-lucide="printer" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </main>
+
+    <div id="print-slip" class="hidden fixed inset-0 bg-white text-black p-10 z-[999]">
+      <div class="max-w-3xl mx-auto border-[6px] border-black p-12 bg-white min-h-[950px] flex flex-col justify-between">
+        <div class="flex justify-between border-b-[4px] border-black pb-8">
+          <div><h1 class="text-4xl font-black uppercase leading-none italic">SkillForge Digital</h1><p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Smart System Registry • Correction Slip</p></div>
+          <div class="text-right"><span class="font-mono text-xl font-bold border-2 border-black px-4 py-1" id="print-ref">#SMART-COR</span></div>
+        </div>
+        <div class="space-y-12 mt-12">
+          <div><span class="text-[11px] font-black uppercase text-slate-400 block mb-2 tracking-[0.2em]">Validated System Identifier (NEW SFID)</span><span class="text-7xl font-black font-mono tracking-tighter text-amber-600" id="print-sfid">SF26-XXX-000</span></div>
+          <div class="border-2 border-slate-100 rounded-2xl overflow-hidden">
+            <div class="grid grid-cols-2 bg-slate-50 border-b-2 border-slate-100"><div class="p-4 border-r-2 border-slate-100"><span class="text-[9px] font-black uppercase text-slate-400">Source Registry</span></div><div class="p-4"><span class="text-[9px] font-black uppercase text-amber-500">Target Registry</span></div></div>
+            <div class="grid grid-cols-2">
+                <div class="p-6 border-r-2 border-slate-100 bg-slate-50/50">
+                    <div class="mb-4"><p class="text-xs font-bold font-mono" id="print-old-sfid">—</p></div>
+                    <div class="mb-2"><p class="text-sm font-bold uppercase" id="print-old-name">—</p></div>
+                    <div><p class="text-[10px] font-black text-slate-400 italic" id="print-old-track">—</p></div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-2"><p class="text-lg font-black uppercase" id="print-new-name">—</p></div>
+                    <div><p class="text-xs font-bold text-amber-600 uppercase" id="print-new-track">—</p></div>
+                </div>
             </div>
-
-            <button type="submit" class="submit-btn" id="submitBtn">
-                Validate & Synchronize
-            </button>
-        </form>
+          </div>
+        </div>
+        <div class="flex justify-between items-end mt-10">
+          <div><div class="w-48 h-0.5 bg-black mb-2"></div><span class="text-[9px] font-black uppercase text-slate-500 tracking-[0.2em]">SkillForge Director</span></div>
+          <p class="text-[10px] font-mono font-black text-slate-300" id="print-hash">SMART_SYNC_VERIFIED</p>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-    const STORAGE_KEY = 'sf_correction_submitted';
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+    import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+    import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-    // Check if user has already submitted
-    window.onload = function() {
-        if (localStorage.getItem(STORAGE_KEY)) {
-            showLockedScreen();
-        }
-        updatePreview();
+    const STORAGE_KEY = 'sf_smart_correction_sync_v2';
+    const firebaseConfig = {
+      apiKey: "AIzaSyBUdigfl1lyCmZ0xrC0b0XgNoBl_XbgWVw",
+      authDomain: "skillforge-registry.firebaseapp.com",
+      projectId: "skillforge-registry",
+      storageBucket: "skillforge-registry.firebasestorage.app",
+      messagingSenderId: "778485483720",
+      appId: "1:778485483720:web:ea6b225ef7ee442df5fdfd"
     };
 
-    function showLockedScreen() {
-        document.getElementById('formContent').innerHTML = `
-            <div class="status-overlay">
-                <div class="icon-circle locked-circle">🔒</div>
-                <h2 style="font-weight: 800; margin: 0;">Session Locked</h2>
-                <p style="color: #64748b; font-size: 14px; padding: 0 20px; margin-top: 15px; line-height: 1.6;">
-                    A correction request from this device is already being processed. 
-                    To ensure data integrity, multiple submissions are prohibited.
-                </p>
-                <div style="margin-top: 30px; font-size: 11px; color: #94a3b8; font-family: 'JetBrains Mono';">
-                    REF_CODE: ${localStorage.getItem(STORAGE_KEY)}
-                </div>
-            </div>
-        `;
-    }
+    const trackCodes = { "Forex Synthetic Indices": "FXS", "Graphics Design": "GRD", "Stock Market Trading": "STK", "Web Design & Development": "WDD", "Forex Currency Pairs": "FXC", "Discord Design & Development": "DDC", "Photography & Editing": "PHO", "Cybersecurity": "CYB" };
+    const trackLinks = { "Forex Synthetic Indices": "https://chat.whatsapp.com/FSFe8YkhdPg9SvwwD7kMvS", "Graphics Design": "https://chat.whatsapp.com/FI9kQl35wiF03KQgcGPY0z", "Stock Market Trading": "https://chat.whatsapp.com/KPIyCtPapph9XbuXvXLBjT", "Web Design & Development": "https://chat.whatsapp.com/C6VP624NFP0L0cyJKGHlGl", "Forex Currency Pairs": "https://chat.whatsapp.com/FxnUMVG0G4RGAFaWEXDmZr", "Discord Design & Development": "https://chat.whatsapp.com/L4SKamm45Wv1Vwn9Vrs6Ru", "Photography & Editing": "https://chat.whatsapp.com/DrKwPbRoJ1i7nrJBzVs9DI", "Cybersecurity": "https://chat.whatsapp.com/IvOiX5PtcoQ0OnBe7bfwHF" };
 
-    function updatePreview() {
-        const sfid = document.getElementById('sfidInput')?.value || 'Waiting...';
-        const name = document.getElementById('nameInput')?.value || 'Ready';
-        const now = new Date();
-        const time = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const appId = 'skillforge-global-2026';
+    let user = null, sessionState = {};
+
+    window.onload = () => {
+        const ref = localStorage.getItem(STORAGE_KEY);
+        if (ref) {
+            document.getElementById('correction-view').classList.add('hidden');
+            document.getElementById('locked-view').classList.remove('hidden');
+            document.getElementById('lock-ref').innerText = `REF: ${ref}`;
+        }
+    };
+
+    signInAnonymously(auth).then(() => onAuthStateChanged(auth, u => user = u));
+
+    document.getElementById('correction-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        const newTrack = document.getElementById('newTrack').value;
+        const oldTrack = document.getElementById('oldTrack').value;
+        const tCode = trackCodes[newTrack];
         
-        const idElem = document.getElementById('pv-id');
-        const nameElem = document.getElementById('pv-name');
-        const timeElem = document.getElementById('pv-time');
+        let count = 50;
+        try { const snap = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'corrections')); count += snap.size; } catch(e) {}
+        
+        const newSFID = `SF26-${tCode}-C${String(count).padStart(3, '0')}`;
+        
+        sessionState = { 
+            old_sfid: document.getElementById('oldSfid').value.trim().toUpperCase(), 
+            old_name: document.getElementById('oldName').value.trim().toUpperCase(), 
+            old_track: oldTrack,
+            corrected_name: document.getElementById('newName').value.trim().toUpperCase(), 
+            corrected_track: newTrack, 
+            whatsapp: document.getElementById('whatsapp').value, 
+            email: document.getElementById('email').value, 
+            sfid: newSFID, 
+            timestamp: new Date().toISOString() 
+        };
 
-        if(idElem) idElem.innerText = sfid;
-        if(nameElem) nameElem.innerText = name.toUpperCase();
-        if(timeElem) timeElem.innerText = time;
-    }
+        document.getElementById('wa-name').innerText = `${newTrack} Hub`;
+        document.getElementById('wa-link').href = trackLinks[newTrack];
+        document.getElementById('correction-view').classList.add('hidden');
+        document.getElementById('onboarding-view').classList.remove('hidden');
+    });
 
-    const form = document.getElementById('correctionForm');
-    const btn = document.getElementById('submitBtn');
+    window.completeStep = s => {
+        const el = document.getElementById(`step-${s}`);
+        el.classList.add('bg-amber-600/10');
+        const l = el.querySelector('a'); l.innerText = 'VERIFIED'; l.className = 'bg-amber-600 text-white text-[9px] font-black px-4 py-2 rounded-lg uppercase';
+        if (s === 'discord') document.getElementById('step-telegram').classList.remove('opacity-40', 'pointer-events-none');
+        if (s === 'telegram') document.getElementById('step-whatsapp').classList.remove('opacity-40', 'pointer-events-none');
+        if (s === 'whatsapp') document.getElementById('final-btn').classList.remove('hidden');
+    };
 
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            btn.disabled = true;
-            btn.innerText = "Synchronizing Registry...";
-
-            const formData = new FormData(form);
-            const object = Object.fromEntries(formData);
-            const refCode = "SF-LOG-" + Math.random().toString(36).substring(2, 8).toUpperCase();
-            
-            object.system_log = "SkillForge Identity Update Triggered. REF: " + refCode;
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(object)
-            })
-            .then(async (response) => {
-                if (response.status == 200) {
-                    localStorage.setItem(STORAGE_KEY, refCode);
-                    
-                    document.getElementById('formContent').innerHTML = `
-                        <div class="status-overlay">
-                            <div class="icon-circle success-circle">✓</div>
-                            <h2 style="font-weight: 800; margin: 0;">Protocol Complete</h2>
-                            <p style="color: #64748b; font-size: 14px; padding: 0 40px; margin-top: 15px; line-height: 1.6;">
-                                The correction has been logged. Your metadata will be updated within 48 hours. 
-                                <strong>Duplicate submissions are now locked for this session.</strong>
-                            </p>
-                            <div style="margin-top: 25px; font-size: 11px; color: #94a3b8; font-family: 'JetBrains Mono';">
-                                RECEIPT: ${refCode}
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    btn.disabled = false;
-                    btn.innerText = "Error: Retrying...";
-                }
-            });
+    window.saveToCloud = async () => {
+        const ref = "SF-COR-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+        if (user) await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'corrections'), {...sessionState, ref});
+        
+        await fetch('https://api.web3forms.com/submit', { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ 
+                access_key: "717169f6-a1b6-4d49-a50f-ed24a6e7d2f3", 
+                subject: `IDENTITY SYNC: ${sessionState.sfid}`, 
+                ...sessionState 
+            }) 
         });
-    }
-</script>
 
+        localStorage.setItem(STORAGE_KEY, ref);
+        document.getElementById('onboarding-view').classList.add('hidden');
+        document.getElementById('success-view').classList.remove('hidden');
+        
+        // Populate print slip
+        document.getElementById('print-sfid').innerText = sessionState.sfid;
+        document.getElementById('print-old-sfid').innerText = sessionState.old_sfid;
+        document.getElementById('print-old-name').innerText = sessionState.old_name;
+        document.getElementById('print-old-track').innerText = sessionState.old_track;
+        document.getElementById('print-new-name').innerText = sessionState.corrected_name;
+        document.getElementById('print-new-track').innerText = sessionState.corrected_track;
+        document.getElementById('print-ref').innerText = `#${ref}`;
+        
+        lucide.createIcons();
+    };
+    lucide.createIcons();
+  </script>
 </body>
 </html>
 
